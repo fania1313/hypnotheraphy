@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Keluhan - Hipnoterapi</title>
+  <link rel="stylesheet" href="keluhan.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">
+    <img src="image/logo.png" alt="Logo" class="logo-img">
+    <span>HipnoTherapy D3 Keperawatan</span>
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html">Tentang</a></li>
+    <li><a href="index.html">Kontak</a></li>
+  </ul>
+</nav>
+
+
+<!-- DESKRIPSI -->
+<div class="desc-out">
+  Halaman ini menampilkan kalimat hipnoterapi untuk setiap keluhan yang Anda pilih.
+  Setiap kalimat dirancang untuk membantu memberikan sugesti positif dan memberikan
+  penjelasan yang lebih mendalam mengenai proses penyembuhan hipnoterapi.
+</div>
+
+<!-- BOX FORM -->
+<div class="container">
+  <h2>Cari Keluhan</h2>
+
+  <input type="text" placeholder="Klik untuk memilih keluhan..." class="search-box" id="inputKeluhan" readonly>
+
+  <select id="pilihanKeluhan" size="6">
+    <option value="mengompol">Mengompol</option>
+    <option value="alergi">Alergi</option>
+    <option value="kebiasaan_belajar">Kebiasaan selalu belajar</option>
+    <option value="tekanan_jiwa">Tekanan jiwa</option>
+    <option value="melupakan_seseorang">Melupakan seseorang</option>
+    <option value="kebiasaan_buruk">Menghentikan kebiasaan buruk</option>
+    <option value="kemarahan">Mengurangi kemarahan</option>
+    <option value="berat_badan">Menurunkan berat badan</option>
+    <option value="percaya_diri">Meningkatkan percaya diri</option>
+    <option value="tekanan_darah">Tekanan darah tinggi</option>
+    <option value="sembelit">Mengatasi sembelit</option>
+    <option value="asma">Mengatasi asma</option>
+  </select>
+
+  <button id="submitBtn">Submit</button>
+</div>
+
+<!-- BOX RESULT -->
+<div class="container result-container" id="resultContainer" style="display:none;">
+  <h3>Script Hipnoterapi</h3>
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+const input = document.getElementById("inputKeluhan");
+const select = document.getElementById("pilihanKeluhan");
+const submitBtn = document.getElementById("submitBtn");
+const resultBox = document.getElementById("result");
+const resultContainer = document.getElementById("resultContainer");
+
+// Klik input untuk membuka select
+input.addEventListener("click", () => {
+  select.style.display = "block";
+});
+
+// Pilih opsi dari select
+select.addEventListener("change", () => {
+  input.value = select.options[select.selectedIndex].text;
+  select.style.display = "none";
+});
+
+// Submit keluhan
+submitBtn.addEventListener("click", () => {
+  if(input.value === ""){
+    alert("Silakan pilih keluhan dulu");
+    return;
+  }
+
+  let fileName = select.value + ".txt";
+
+  fetch("scripts/" + fileName)
+    .then(res => res.text())
+    .then(data => {
+      resultBox.textContent = data;
+      resultContainer.style.display = "block";
+      resultBox.classList.add("show");
+    })
+    .catch(() => {
+      resultBox.textContent = "Script belum tersedia.";
+      resultContainer.style.display = "block";
+      resultBox.classList.add("show");
+    });
+});
+</script>
+
+</body>
+</html>
