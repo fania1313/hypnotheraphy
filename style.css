@@ -16,7 +16,7 @@ body{
   background:#f5f5f5;
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 .navbar {
   position: relative; /* supaya ul bisa di tengah */
   padding: 20px 50px;
@@ -44,14 +44,11 @@ body{
   color: #2a7df3;
 }
 
-
 .logo-img {
-  width: 40px;    /* ukuran logo */
+  width: 40px;    
   height: 40px;
   object-fit: contain;
 }
-
-
 
 .navbar a{
   text-decoration:none;
@@ -59,6 +56,24 @@ body{
   font-weight:bold;
 }
 
+/* ===== RESPONSIVE NAVBAR ===== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap; /* logo dan menu bisa baris baru */
+    justify-content: flex-start;
+    padding: 15px 20px;
+  }
+
+  .navbar ul {
+    position: static;    /* menu tidak absolute lagi */
+    transform: none;
+    flex-direction: column; /* menu vertikal */
+    width: 100%;
+    margin-top: 10px;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
 
 /* HERO */
 .hero{
